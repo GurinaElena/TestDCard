@@ -1,4 +1,8 @@
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import java.text.SimpleDateFormat;
@@ -13,8 +17,19 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class TestWithDataGeneration {
 
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
 
-        @Test
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
+
+
+    @Test
         void shouldDeliveryCardWithChangeDate (){
 
             Calendar c = new GregorianCalendar();
